@@ -29,14 +29,15 @@
             <button id="restart">Restart</button>
         </div>
 
-        <form id="name">
-            <label for="nameInput">Enter your name</label>
-            <input id="nameInput" type="text" required minlength="1" maxlength="16">
-            <button id="submit" type="submit">Submit</button>
+        <form>
+            <label>Enter your name
+                <input type="text" required minlength="1" maxlength="16">
+            </label>
+            <button type="submit">Submit</button>
         </form>
 
         <div id="characterSelectionContainer">
-            <did>Select your character</did>
+            <did id="title">Select your character</did>
             <div id="charactersContainer">
                 <button id="characterX">X</button>
                 <button id="characterO">O</button>
