@@ -2,6 +2,11 @@
   display: none;
 }
 
+#boardContainer {
+  display: grid;
+  grid-template: 50px 50px 50px / 50px 50px 50px ;
+}
+
 #characterSelectionContainer {
   display: none;
 }
