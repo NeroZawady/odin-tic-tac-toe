@@ -39,6 +39,12 @@ const computer = (() => {
 
 })();
 
+for(let cell of gameBoard.cells) {
+  cell.addEventListener("click", () => {
+    cell.textContent = player.character;
+  })
+}
+
 form.addEventListener("submit", () => {
   event.preventDefault();
   player.name = nameInput.value;

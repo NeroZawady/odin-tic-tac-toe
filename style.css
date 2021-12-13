@@ -1,23 +1,7 @@
-#infoContainer {
+#gameContainer {
   display: none;
-}
-
-#boardContainer {
-  display: none;
-}
-
-#restart {
-  display: none;
-}
-
-#name {
-  
 }
 
 #characterSelectionContainer {
-  display: none;
-}
-
-#gameContainer {
   display: none;
 }
