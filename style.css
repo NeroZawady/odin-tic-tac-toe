@@ -10,10 +10,14 @@
   display: none;
 }
 
-#namePromptContainer {
+#name {
   
 }
 
 #characterSelectionContainer {
+  display: none;
+}
+
+#gameContainer {
   display: none;
 }

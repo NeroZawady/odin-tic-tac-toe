@@ -1,9 +1,10 @@
-const namePromptContainer = document.querySelector("#namePromptContainer");
 const characterSelectionContainer = document.querySelector("#characterSelectionContainer");
 const buttonSubmit = document.querySelector("#submit");
-const nameInput = document.querySelector("#namePromptContainer input");
+const nameInput = document.querySelector("#nameInput");
 const buttonCharacterX = document.querySelector("#characterX");
 const buttonCharacterO = document.querySelector("#characterO");
+const nameForm = document.querySelector("#name");
+const gameContainer = document.querySelector("#gameContainer");
 
 const player = (() => {
   let name = null;
@@ -27,17 +28,19 @@ const computer = (() => {
 
 })();
 
-buttonSubmit.addEventListener("click", () => {
-  player.name = nameInput.value
+nameForm.addEventListener("submit", () => {
+  event.preventDefault();
+  player.name = nameInput.value;
   nameInput.value = null;
-  namePromptContainer.style.display = "none";
-  characterSelectionContainer.style.display = "block";
 
-});
+  nameForm.style.display = "none";
+  characterSelectionContainer.style.display = "block";
+})
 
 nameInput.addEventListener("keyup", (event) => {
   if(event.keyCode === 13) {
-    buttonSubmit.click();
+    event.preventDefault();
+    nameForm.submit();
   }
 })
 
@@ -48,4 +51,7 @@ buttonCharacterO.addEventListener("click", () => setPlayerComputerCharacters("O"
 function setPlayerComputerCharacters(playerCharacter, computerCharacter) {
   player.character = playerCharacter;
   computer.character = computerCharacter;
+
+  characterSelectionContainer.style.display = "none";
+  gameContainer.style.display = "block";
 }
