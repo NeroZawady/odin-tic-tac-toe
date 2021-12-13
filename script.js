@@ -10,5 +10,10 @@ const player = (() => {
 
 buttonSubmit.addEventListener("click", () => {
   player.name = nameInput.value
-  document.querySelector("#")
 });
+
+nameInput.addEventListener("keyup", (event) => {
+  if(event.keyCode === 13) {
+    buttonSubmit.click();
+  }
+})
