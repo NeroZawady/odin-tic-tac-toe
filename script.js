@@ -6,12 +6,17 @@ const buttonSubmit = document.querySelector("form button");
 const characterSelectionContainer = document.querySelector("#characterSelectionContainer");
 const buttonCharacterX = document.querySelector("#characterX");
 const buttonCharacterO = document.querySelector("#characterO");
+const gameOverBanner = document.querySelector("#gameOverBanner");
+const buttonPlayAgain = document.querySelector("#playAgain");
+const buttonRestart = document.querySelector("#restart");
 
 const game = (() => {
   let roundOver = false;
+  let over = false;
 
   return {
     roundOver,
+    over,
   }
 
 })();
@@ -78,7 +83,7 @@ function roundEnd(playerWon) {
 
 for(let cell of gameBoard.cells) {
   cell.addEventListener("click", () => {
-    if(cell.textContent === "") {
+    if(cell.textContent === "" && !game.over) {
       cell.textContent = player.character;
       gameBoard.emptyCells--;
 
@@ -125,9 +130,37 @@ for(let cell of gameBoard.cells) {
 
 function gameOver(playerWon) {
   if(playerWon) {
-    
+    gameOverBanner.querySelector("div").textContent = "You Won!";
+    gameOverBanner.style.backgroundColor = "green";
+  } else {
+    gameOverBanner.querySelector("div").textContent = "You Lost...";
+    gameOverBanner.style.backgroundColor = "red";
   }
+  gameOverBanner.style.display = "block";
+  game.over = true;
 }
+
+buttonPlayAgain.addEventListener("click", () => {
+  player.score = 0;
+  computer.score = 0;
+  score.textContent = "0 - 0";
+  score.style.color = "white";
+  gameBoard.emptyCells = 9;
+  gameBoard.cells = gameBoard.cells.map(x => {x.textContent = ""; return x;});
+  game.over = false;
+  gameOverBanner.style.display = "none";
+})
+
+buttonRestart.addEventListener("click", () => {
+  if(!game.over) {
+    player.score = 0;
+    computer.score = 0;
+    score.textContent = "0 - 0";
+    score.style.color = "white";
+    gameBoard.emptyCells = 9;
+    gameBoard.cells = gameBoard.cells.map(x => {x.textContent = ""; return x;});
+  }
+})
 
 function playTurns(cell) {
 
