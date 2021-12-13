@@ -1,5 +1,4 @@
 const gameContainer = document.querySelector("#gameContainer");
-const playerName = document.querySelector("#playerName");
 const score = document.querySelector("#score");
 const form = document.querySelector("form");
 const nameInput = document.querySelector("form input");
@@ -46,7 +45,7 @@ for(let cell of gameBoard.cells) {
     cell.textContent = player.character;
     gameBoard.emptyCells--;
     if(gameBoard.emptyCells < 1) {
-      
+
     } else {
       gameBoard.cells.filter(x => x.textContent === "")[Math.floor(Math.random() * gameBoard.cells.filter(x => x.textContent === "").length)].textContent = computer.character;
       gameBoard.emptyCells--;
@@ -57,6 +56,7 @@ for(let cell of gameBoard.cells) {
 form.addEventListener("submit", () => {
   event.preventDefault();
   player.name = nameInput.value;
+  document.querySelector("#playerName").textContent = player.name;
   nameInput.value = null;
 
   form.style.display = "none";
