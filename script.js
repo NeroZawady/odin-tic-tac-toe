@@ -10,9 +10,11 @@ const buttonCharacterO = document.querySelector("#characterO");
 
 const gameBoard = (() => {
   const cells = Array.from(document.querySelectorAll("#boardContainer button"));
+  let emptyCells = 9;
 
   return {
     cells,
+    emptyCells,
   }
 
 })();
@@ -42,6 +44,13 @@ const computer = (() => {
 for(let cell of gameBoard.cells) {
   cell.addEventListener("click", () => {
     cell.textContent = player.character;
+    gameBoard.emptyCells--;
+    if(gameBoard.emptyCells < 1) {
+      
+    } else {
+      gameBoard.cells.filter(x => x.textContent === "")[Math.floor(Math.random() * gameBoard.cells.filter(x => x.textContent === "").length)].textContent = computer.character;
+      gameBoard.emptyCells--;
+    }
   })
 }
 
