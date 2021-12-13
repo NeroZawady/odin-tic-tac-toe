@@ -10,3 +10,7 @@
 #characterSelectionContainer {
   display: none;
 }
+
+#gameOverBanner {
+  display: none;
+}
