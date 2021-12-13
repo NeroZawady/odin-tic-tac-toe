@@ -17,3 +17,4 @@ Features to implement:
 * Add play again prompt
 * Add restart game button
     * Back to character selection
+* Prevent player from clicking same cell
