@@ -1,16 +1,113 @@
-#gameContainer {
-  display: none;
+body {
+  margin: 0;
+  padding: 50px 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  background-color: rgb(60, 60, 60);
+  font-size: 60px;
+  font-family: sans-serif;
+  color: white;
 }
 
-#boardContainer {
-  display: grid;
-  grid-template: 50px 50px 50px / 50px 50px 50px ;
+form {
+  background-color: rgb(100, 100, 100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 100px;
+  gap: 50px;
+}
+
+form button {
+  font-size: 60px;
+  height: 100px;
+  width: 300px;
+}
+
+form input {
+  height: 60px;
+  width: 320px;
+  font-size: 60px;
 }
 
 #characterSelectionContainer {
   display: none;
+  background-color: rgb(100, 100, 100);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 100px;
+  gap: 50px;
+}
+
+#characterSelectionContainer button {
+  height: 100px;
+  width: 200px;
+  font-size: 60px;
+
+}
+
+#gameContainer {
+  display: none;
+  background-color: rgb(100, 100, 100);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 50px 50px;
+  gap: 50px;
+}
+
+#infoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+}
+
+#playerName {
+  /* width: 300px; */
+  text-align: right;
+}
+
+#boardContainer {
+  display: grid;
+  grid-template: 150px 150px 150px / 150px 150px 150px;
+  gap: 5px;
+}
+
+#boardContainer button {
+  font-size: 60px;
+  border: none;
 }
 
 #gameOverBanner {
   display: none;
+  position: fixed;
+  overflow: auto;
+  background-color: rgba(100, 100, 100, 0);
+  padding: 50px 100px;
+  height: fit-content;
+  width: fit-content;
+}
+
+#gameOverBanner div {
+  text-align: center;
+}
+
+#gameOverBanner button {
+  margin-top: 50px;
+  font-size: 60px;
+  height: fit-content;
+  width: fit-content;
+  padding: 20px 40px;
+}
+
+#restart {
+  font-size: 60px;
+  height: 100px;
+  width: 300px;
 }

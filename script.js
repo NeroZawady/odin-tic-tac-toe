@@ -1,3 +1,7 @@
+const MAX_POINTS = 3;
+const SKIP_NAME_FORM = false;
+const SKIP_CHARACTER_SELECTION = false;
+
 const gameContainer = document.querySelector("#gameContainer");
 const score = document.querySelector("#score");
 const form = document.querySelector("form");
@@ -10,15 +14,10 @@ const gameOverBanner = document.querySelector("#gameOverBanner");
 const buttonPlayAgain = document.querySelector("#playAgain");
 const buttonRestart = document.querySelector("#restart");
 
+let boolGameOver = false;
+
 const game = (() => {
-  let roundOver = false;
-  let over = false;
-
-  return {
-    roundOver,
-    over,
-  }
-
+  
 })();
 
 const gameBoard = (() => {
@@ -39,8 +38,8 @@ const gameBoard = (() => {
 })();
 
 const player = (() => {
-  let name = null;
-  let character = null;
+  let name = "";
+  let character = "";
   let score = 0;
 
   return {
@@ -53,7 +52,7 @@ const player = (() => {
 
 const computer = (() => {
   const name = "Computer";
-  let character = null;
+  let character = "";
   let score = 0;
 
   return {
@@ -64,26 +63,9 @@ const computer = (() => {
 
 })();
 
-function roundEnd(playerWon) {
-  switch(playerWon) {
-    case true:
-      player.score++;
-      score.style.color = "green";
-      break;
-    case false:
-      computer.score++;
-      score.style.color = "red";
-      break;
-    case null:
-      score.style.color = "white";
-  }
-
-  score.textContent = player.score + " - " + computer.score;
-}
-
 for(let cell of gameBoard.cells) {
   cell.addEventListener("click", () => {
-    if(cell.textContent === "" && !game.over) {
+    if(cell.textContent === "" && !boolGameOver) {
       cell.textContent = player.character;
       gameBoard.emptyCells--;
 
@@ -92,7 +74,7 @@ for(let cell of gameBoard.cells) {
         score.style.color = "green";
         score.textContent = player.score + " - " + computer.score;
 
-        if(player.score === 3) {
+        if(player.score === MAX_POINTS) {
           gameOver(true);
         } else{
           gameBoard.emptyCells = 9;
@@ -115,7 +97,7 @@ for(let cell of gameBoard.cells) {
             score.style.color = "red";
             score.textContent = player.score + " - " + computer.score;
 
-            if(computer.score === 3) {
+            if(computer.score === MAX_POINTS) {
               gameOver(false);
             } else{
               gameBoard.emptyCells = 9;
@@ -137,7 +119,7 @@ function gameOver(playerWon) {
     gameOverBanner.style.backgroundColor = "red";
   }
   gameOverBanner.style.display = "block";
-  game.over = true;
+  boolGameOver = true;
 }
 
 buttonPlayAgain.addEventListener("click", () => {
@@ -147,12 +129,12 @@ buttonPlayAgain.addEventListener("click", () => {
   score.style.color = "white";
   gameBoard.emptyCells = 9;
   gameBoard.cells = gameBoard.cells.map(x => {x.textContent = ""; return x;});
-  game.over = false;
+  boolGameOver = false;
   gameOverBanner.style.display = "none";
 })
 
 buttonRestart.addEventListener("click", () => {
-  if(!game.over) {
+  if(!boolGameOver) {
     player.score = 0;
     computer.score = 0;
     score.textContent = "0 - 0";
@@ -162,60 +144,6 @@ buttonRestart.addEventListener("click", () => {
   }
 })
 
-function playTurns(cell) {
-
-
-  // event.preventDefault();
-
-  /*
-  can player play?
-    if so, player plays
-    has player won?
-      if so, change score, update score text and color, reset board and empty cells, start from beginning
-  
-  is the board full?
-    if so, no one won
-
-  can computer play?
-    if so, computer plays
-    has computer won?
-      if so, change score, update score text and color, reset board and empty cells, start from beginning
-
-  
-  */
-
-  cell.textContent = player.character;
-  gameBoard.emptyCells--;
-
-  if(gameBoard.emptyCells < 5 && findWinner() === player.character) {
-    roundEnd(true);
-    gameBoard.reset();
-    return;
-  }
-
-  if(gameBoard.emptyCells === 0) {
-    score.style.color = "white";
-
-  }
-
-  if(gameBoard.emptyCells > 0) {
-    let cellIndex = Math.floor(Math.random() * gameBoard.cells.filter(x => x.textContent === "").length);
-    gameBoard.cells.filter(x => x.textContent === "")[cellIndex].textContent = computer.character;
-    gameBoard.cells.filter(x => x.textContent === "")[cellIndex].removeEventListener("click", playTurns(cell), {once: true});
-    // cell.removeEventListener("click", playTurns(cell));
-    gameBoard.emptyCells--;
-
-    if(gameBoard.emptyCells < 4 && findWinner() === computer.character) {
-      roundEnd(false);
-      gameBoard.reset();
-      return;
-    }
-  } else {
-    score.style.color = "white";
-    gameBoard.reset();
-    return;
-  }
-}
 
 function findWinner() {
   if(checkHorizontal() !== null) {
@@ -268,12 +196,11 @@ form.addEventListener("submit", () => {
   nameInput.value = null;
 
   form.style.display = "none";
-  characterSelectionContainer.style.display = "block";
+  characterSelectionContainer.style.display = "flex";
 })
 
 nameInput.addEventListener("keyup", (event) => {
   if(event.keyCode === 13) {
-    event.preventDefault();
     form.submit();
   }
 })
@@ -287,5 +214,13 @@ function setPlayerAndComputerCharacters(playerCharacter, computerCharacter) {
   computer.character = computerCharacter;
 
   characterSelectionContainer.style.display = "none";
-  gameContainer.style.display = "block";
+  gameContainer.style.display = "flex";
 }
+
+if(SKIP_NAME_FORM) {
+  form.querySelector("input").value = "Player";
+  form.requestSubmit();
+}
+
+if(SKIP_CHARACTER_SELECTION)
+  buttonCharacterX.click();
